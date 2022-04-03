@@ -77,14 +77,11 @@ function Todos() {
                     variables: {
                       id: ET.id,
                     },
-                    refetchQueries: [
-                      GET_All_TODOS, // DocumentNode object parsed with gql
-                      "get_All_Todos ", // Query name
-                      GET_All_COMPLETED_TODOS, // DocumentNode object parsed with gql
-                      "get_all_completed_todos", // Query name
-                      GET_All_IN_COMPLETED_TODOS, // DocumentNode object parsed with gql
-                      "get_all_in_completed_todos", // Query name
-                    ],
+                    refetchQueries: () => {
+                      refetch()
+                      refetch1()
+                      refetch2()
+                    }
                   })
                 }}
               >

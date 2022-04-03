@@ -12,7 +12,10 @@ import {useNavigate} from "react-router-dom"
 function Info() {
   const navigate = useNavigate()
 
-  const {loading, error, data} = useQuery(GET_All_TODOS)
+  const {loading, error, data,refetch} = useQuery(GET_All_TODOS)
+
+  const {refetch:refetch1} = useQuery(GET_All_COMPLETED_TODOS)
+  const {refetch:refetch2} = useQuery(GET_All_IN_COMPLETED_TODOS)
 
   const [delete_todos, {loading: loading1, error: error1}] = useMutation(
     DELETE_COMPLETED_TODOS_MUTATION
@@ -76,14 +79,11 @@ function Info() {
           className="btn btn-warning btn-sm"
           onClick={() =>
             delete_todos({
-              refetchQueries: [
-                GET_All_TODOS, // DocumentNode object parsed with gql
-                "get_All_Todos ", // Query name
-                GET_All_COMPLETED_TODOS, // DocumentNode object parsed with gql
-                "get_all_completed_todos", // Query name
-                GET_All_IN_COMPLETED_TODOS, // DocumentNode object parsed with gql
-                "get_all_in_completed_todos", // Query name
-              ],
+                refetchQueries: () => {
+                    refetch()
+                    refetch1()
+                    refetch2()
+                  }
             })
           }
         >

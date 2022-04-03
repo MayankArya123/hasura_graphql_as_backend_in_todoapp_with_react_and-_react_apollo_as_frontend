@@ -12,24 +12,7 @@ import {useNavigate} from "react-router-dom"
 function CompletedTodos() {
   const navigate = useNavigate()
 
-  const ChangeStatus = (e, Id) => {
-    console.log("status", !e, data)
-
-    updateTodo({
-      variables: {
-        id: Id,
-        completed: !e,
-      },
-      refetchQueries: [
-        GET_All_COMPLETED_TODOS, // DocumentNode object parsed with gql
-        "get_all_completed_todos", // Query name
-        GET_All_IN_COMPLETED_TODOS, // DocumentNode object parsed with gql
-        "get_all_in_completed_todos", // Query name
-      ],
-    })
-  }
-
-  const {loading, error, data} = useQuery(GET_All_COMPLETED_TODOS)
+  const {loading, error, data,refetch} = useQuery(GET_All_COMPLETED_TODOS)
 
   const [updateTodo, {loading: loading1, error: error1}] = useMutation(
     UPDATE_TODO_BY_STATUS_MUTATION
@@ -38,6 +21,25 @@ function CompletedTodos() {
   const [deleteTodo, {loading: loading2, error: error2}] =
   useMutation(DELETE_TODO_MUTATION)
 
+  const {refetch:refetch1} = useQuery(GET_All_TODOS)
+  const {refetch:refetch2} = useQuery(GET_All_IN_COMPLETED_TODOS)
+
+
+  const ChangeStatus = (e, Id) => {
+    console.log("status", !e, data)
+
+    updateTodo({
+      variables: {
+        id: Id,
+        completed: !e,
+      },
+      refetchQueries: () => {
+        refetch()
+        refetch1()
+        refetch2()
+      }
+    })
+  }
 
 
   if (loading)
@@ -79,14 +81,11 @@ if (error2) console.log("kkkkk", error.graphQLErrors)
                   variables: {
                     id: ET.id,
                   },
-                  refetchQueries: [
-                    GET_All_TODOS, // DocumentNode object parsed with gql
-                    "get_All_Todos ", // Query name
-                    GET_All_COMPLETED_TODOS, // DocumentNode object parsed with gql
-                    "get_all_completed_todos", // Query name
-                    GET_All_IN_COMPLETED_TODOS, // DocumentNode object parsed with gql
-                    "get_all_in_completed_todos", // Query name
-                  ],
+                  refetchQueries: () => {
+                    refetch()
+                    refetch1()
+                    refetch2()
+                  }
                 })
               }}
             >

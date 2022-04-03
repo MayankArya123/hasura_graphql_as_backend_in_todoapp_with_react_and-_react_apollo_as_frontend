@@ -22,6 +22,10 @@ function AddTodo() {
 
   const [insertTodo, {data, loading, error}] = useMutation(ADD_TODO_MUTATION)
 
+  const {refetch:refetch} = useQuery(GET_All_TODOS)
+  const {refetch:refetch1} = useQuery(GET_All_IN_COMPLETED_TODOS)
+  const {refetch:refetch2} = useQuery(GET_All_COMPLETED_TODOS)
+
   if (error) return `Submission error! ${error.message}`
   console.log(insertTodo)
 
@@ -34,14 +38,11 @@ function AddTodo() {
         onClick={() =>
           insertTodo({
             variables: {title: Title, id: Id, completed: false},
-            refetchQueries: [
-              GET_All_TODOS, // DocumentNode object parsed with gql
-              "get_All_Todos ", // Query name
-              GET_All_COMPLETED_TODOS, // DocumentNode object parsed with gql
-              "get_all_completed_todos", // Query name
-              GET_All_IN_COMPLETED_TODOS, // DocumentNode object parsed with gql
-              "get_all_in_completed_todos", // Query name
-            ],
+            refetchQueries: () => {
+              refetch()
+              refetch1()
+              refetch2()
+            }
           })
         }
       >
