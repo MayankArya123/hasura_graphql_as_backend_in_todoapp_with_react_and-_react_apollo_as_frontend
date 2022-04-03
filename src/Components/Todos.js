@@ -44,14 +44,7 @@ function Todos() {
         id: Id,
         completed: !e,
       },
-      refetchQueries: () => [
-        GET_All_TODOS,
-        "get_All_Todos ",
-        GET_All_COMPLETED_TODOS,
-        "get_all_completed_todos",
-        GET_All_IN_COMPLETED_TODOS,
-        "get_all_in_completed_todos",
-      ]
+      refetchQueries: () => [  GET_All_TODOS, "get_All_Todos ",GET_All_COMPLETED_TODOS,"get_all_completed_todos",GET_All_IN_COMPLETED_TODOS,"get_all_in_completed_todos"]
     })
   }
 
