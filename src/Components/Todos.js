@@ -13,7 +13,9 @@ import {useNavigate} from "react-router-dom"
 function Todos() {
   const navigate = useNavigate()
 
-  const {loading, error, data} = useQuery(GET_All_TODOS)
+  const {loading, error, data,refetch} = useQuery(GET_All_TODOS)
+  const {refetch:refetch1} = useQuery(GET_All_COMPLETED_TODOS)
+  const {refetch:refetch2} = useQuery(GET_All_IN_COMPLETED_TODOS)
 
   const [updateTodo, {loading: loading1, error: error1}] = useMutation(
     UPDATE_TODO_BY_STATUS_MUTATION
@@ -31,10 +33,10 @@ function Todos() {
   if (error) console.log("kkkkk", error.graphQLErrors)
 
   if (loading1) return <p className="text-center mt-2"> updating .</p>
-  if (error1) console.log("kkkkk", error.graphQLErrors)
+  if (error1) console.log("kkkkk", error1.graphQLErrors)
 
   if (loading2) return <p className="text-center mt-2"> deleting.</p>
-  if (error2) console.log("kkkkk", error.graphQLErrors)
+  if (error2) console.log("kkkkk", error2.graphQLErrors)
 
   const ChangeStatus = (e, Id) => {
     console.log("status", !e, data)
@@ -44,8 +46,14 @@ function Todos() {
         id: Id,
         completed: !e,
       },
-      refetchQueries: () => [  GET_All_TODOS, "get_All_Todos ",GET_All_COMPLETED_TODOS,"get_all_completed_todos",GET_All_IN_COMPLETED_TODOS,"get_all_in_completed_todos"]
+      refetchQueries: () => {
+        refetch()
+        refetch1()
+        refetch2()
+      }
     })
+
+
   }
 
   if (data) {
