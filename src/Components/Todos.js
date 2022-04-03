@@ -16,16 +16,7 @@ function Todos() {
   const {loading, error, data} = useQuery(GET_All_TODOS)
 
   const [updateTodo, {loading: loading1, error: error1}] = useMutation(
-    UPDATE_TODO_BY_STATUS_MUTATION,{
-      refetchQueries: [
-        GET_All_TODOS,
-        "get_All_Todos ",
-        GET_All_COMPLETED_TODOS,
-        "get_all_completed_todos",
-        GET_All_IN_COMPLETED_TODOS,
-        "get_all_in_completed_todos",
-      ],
-    }
+    UPDATE_TODO_BY_STATUS_MUTATION
   )
 
   const [deleteTodo, {loading: loading2, error: error2}] =
@@ -52,7 +43,15 @@ function Todos() {
       variables: {
         id: Id,
         completed: !e,
-      }
+      },
+      refetchQueries: () => [
+        GET_All_TODOS,
+        "get_All_Todos ",
+        GET_All_COMPLETED_TODOS,
+        "get_all_completed_todos",
+        GET_All_IN_COMPLETED_TODOS,
+        "get_all_in_completed_todos",
+      ]
     })
   }
 

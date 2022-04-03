@@ -16,6 +16,8 @@ const GET_All_TODOS = gql`
   }
 `
 
+
+
 const GET_All_COMPLETED_TODOS = gql`
   query get_all_completed_todos {
     todos(where: {completed: {_eq: true}}) {
