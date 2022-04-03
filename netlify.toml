@@ -1,0 +1,4 @@
+
+[[plugins]]
+  # Installs the Lighthouse Build Plugin for all deploy contexts
+  package = "fs"
