@@ -5,13 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
   ApolloClient,
+  
   InMemoryCache,
   ApolloProvider,
   useQuery,
   gql
 } from "@apollo/client";
 
+import dotenv from 'dotenv'
+import process from "process"
 
+// dotenv.config({
+//   path:'./.env'
+// })
 
 const client = new ApolloClient({
   uri: 'https://social-warthog-24.hasura.app/v1/graphql',
@@ -19,7 +25,7 @@ const client = new ApolloClient({
   topLevelAwait: true,
   headers: {
     'content-type': 'application/json',
-    'x-hasura-admin-secret': 'uDYJNNt3EkNhtB6LbM3VWKec1rdr8vMIBoKTa3jrtpof2yI5GHcf1cdsw8g2Bj6i'
+    'x-hasura-admin-secret':process.env.REACT_APP_HASURA_SECRET_KEY
   }
 });
 
