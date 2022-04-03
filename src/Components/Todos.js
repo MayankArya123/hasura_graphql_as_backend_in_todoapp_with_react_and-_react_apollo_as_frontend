@@ -45,12 +45,12 @@ function Todos() {
         completed: !e,
       },
       refetchQueries: [
-        GET_All_TODOS, // DocumentNode object parsed with gql
-        "get_All_Todos ", // Query name
-        GET_All_COMPLETED_TODOS, // DocumentNode object parsed with gql
-        "get_all_completed_todos", // Query name
-        GET_All_IN_COMPLETED_TODOS, // DocumentNode object parsed with gql
-        "get_all_in_completed_todos", // Query name
+        GET_All_TODOS,
+        "get_All_Todos ",
+        GET_All_COMPLETED_TODOS,
+        "get_all_completed_todos",
+        GET_All_IN_COMPLETED_TODOS,
+        "get_all_in_completed_todos",
       ],
     })
   }
