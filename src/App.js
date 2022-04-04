@@ -15,9 +15,10 @@ import {
 
 import CompletedTodos from "./Components/CompletedTodos"
 import InCompletedTodos from "./Components/InCompletedTodos."
+
 import Info from "./Components/Info"
 
-
+//
 function App() {
 
 
