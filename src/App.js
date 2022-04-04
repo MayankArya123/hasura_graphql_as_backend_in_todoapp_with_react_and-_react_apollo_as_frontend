@@ -21,7 +21,6 @@ import Info from "./Components/Info"
 function App() {
 
 
-
   return (
     <div className="App">
       <Router>

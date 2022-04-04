@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -13,7 +14,8 @@ import {
 } from "@apollo/client";
 
 import dotenv from 'dotenv'
-import process from "process"
+
+
 
 // dotenv.config({
 //   path:'./.env'
